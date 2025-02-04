@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import React from "react";
 import useLocalStorage from "../share/useLocalStorage";
 import { profile } from "console";
+import { AppDispatch } from "../../store";
+import { useDispatch } from "react-redux";
+import { fetchLoginAccount } from "../../features/loginAccounts/loginThunks";
+import { Account } from "../../types/loginTypes";
 
 var style_input: string = "w-full mb-2 p-4 text-[15px] bg-neutral-100 focus:outline-none focus-visible:border-gray-400 border rounded-xl border-transparent hover:border-indigo-500/50";
 
@@ -21,19 +25,9 @@ const initialState: dataLogin = {
   status: undefined,
 };
 
-interface lang {
-  itemEN?: string | null,
-  itemVN?: string | null,
-  language: string,
-}
-
-const initialLang = {
-  itemEN: null,
-  itemVN: null,
-  language: '',
-}
 
 export const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
   const [state, setState] = useState<dataLogin>(initialState);
@@ -45,55 +39,25 @@ export const Login = () => {
       [name]: value
     });
   };
-  // useEffect(() => {
-  //   localStorage.removeItem('id');
-  //   const item = localStorage.getItem('item');
-  //   if(item) {
-  //     console.log('true');
-  //   } else {
-  //     localStorage.setItem('item', '12343454');
-  //   }
-  // })
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setState({ ...state, message: null, status: undefined });
-
-    const loginData = {
-      user: state.user,
+    setState({ ...state, message: null, status: undefined })
+    const loginData:Account = {
+      account: state.user,
       password: state.password
     };
-
-    try {
-      const response = await fetch("http://192.168.1.16:8082/api/profile/login", {
-        method: 'POST',
-        headers: {
-          'accept': '*/*',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(loginData),
-      });
-
-      if (!response.ok) {
-        const result = await response.json();
-        console.log('Success:', result);
-        console.log(result.message);
-        console.log(result.status);
-        setState({ ...state, message: result.message, status: result.status });
-      }
-
-      const result = await response.json();
-      console.log('Success:', result);
-      console.log(result.message);
-      console.log(result.status);
-      console.log(result.data);
-      setState({ ...state, message: result.message, status: result.status });
-      setTimeout(() => {
-        localStorage.setItem('id', result.message)
-        navigate("/home");
-      }, 1000);
-    } catch (error) {
-    }
+   
+    const result = (await dispatch(fetchLoginAccount(loginData)));
+    console.log(result);
+    if(result.meta.requestStatus !== 'rejected'){
+      setState({ ...state, message: 'Đăng nhập thành công', status: 'success' });
+      localStorage.setItem('token', result.payload);
+      navigate('/');
+     }else{
+      setState({ ...state, message: 'Đăng nhập thất bại', status: 'error' });
+     }
   };
 
   return (

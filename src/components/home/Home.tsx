@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Image } from "antd";
 import React, { useRef } from "react";
+import PostModal from "../modals/postModal";
 
 export const Home = () => {
   const data = [
@@ -63,29 +64,31 @@ export const Home = () => {
   const scrollLeft = useRef(0);
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    const container = containerRef.current;
+    const container = containerRef.current as unknown as HTMLDivElement;
     isDragging.current = true;
-    container.classList.add("active");
+      container.classList.add("active");
+    
     startX.current = e.pageX - container.offsetLeft;
     scrollLeft.current = container.scrollLeft;
+  
   };
 
   const handleMouseLeave = () => {
     isDragging.current = false;
-    const container = containerRef.current;
+    const container = containerRef.current as unknown as HTMLDivElement;;
     container.classList.remove("active");
   };
 
   const handleMouseUp = () => {
     isDragging.current = false;
-    const container = containerRef.current;
+    const container = containerRef.current as unknown as HTMLDivElement;;
     container.classList.remove("active");
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current) return; // Chỉ di chuyển khi đang kéo
     e.preventDefault();
-    const container = containerRef.current;
+    const container = containerRef.current as unknown as HTMLDivElement;;
     const x = e.pageX - container.offsetLeft;
     const walk = (x - startX.current) * 2; // Tăng tốc độ di chuyển
     container.scrollLeft = scrollLeft.current - walk;
@@ -93,6 +96,9 @@ export const Home = () => {
 
   return (
     <>
+      <PostModal isOpen={true} />
+
+
       <div className="w-full flex justify-center items-center">
         <div className="w-2/3 h-screen flex justify-center items-center flex-col px-6 overflow-hidden">
           <div className="w-full h-[60px] flex justify-between items-center px-4 py-2 relative">

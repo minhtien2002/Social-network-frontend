@@ -7,6 +7,7 @@ interface LoginState {
   lastName: string;
   firstName: string;
   userName: string;
+  accountName: string,
   password: string;
   email: string
   error?: string | null;
@@ -16,52 +17,18 @@ const initialState: LoginState = {
   lastName: '',
   firstName: '',
   userName: '',
+  accountName: '',
   password: '',
   email: '',
   error: null
 };
 
 // Hàm giả lập gọi API
-const mockLoginApi = async (loginData: { lastname: string; firstname: string; username: string; password: string; email: string }): Promise<{ success: boolean; token?: string; message?: string }> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (loginData.username === 'admin' && loginData.password === 'admin') {
-        resolve({ success: true, token: 'fake-jwt-token' });
-      } else {
-        reject({ success: false, message: 'Nhập tên người dùng, số điện thoại hoặc email của bạn trên Threads.' });
-      }
-    }, 1000);
-  });
-};
+
 
 export const Register = () => {
-  const [data, setData] = useState<{ [key: string]: any }>({});
 
-  const sendData = async () => {
-    const jsonData = {
-      key1: 'value1',
-      key2: 'value2',
-    };
-
-    try {
-      const response = await fetch('http://192.168.1.19:3001/data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(jsonData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log('Success:', result);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+  
 
   const [state, setState] = useState<LoginState>(initialState);
 
@@ -78,32 +45,13 @@ export const Register = () => {
     setState({ ...state, error: null });
 
     const loginData = {
-      lastname: state.lastName,
-      firstname: state.firstName,
-      username: state.userName,
+      fullName: state.lastName + ' ' + state.firstName,
+      userName: state.userName,
+      accountName: state.accountName,
       password: state.password,
       email: state.email,
     };
 
-    try {
-      const response = await mockLoginApi(loginData);
-
-      // nhận thấy lệnh này không cần thiết lắm
-      // if (!response.success) {
-      //   throw new Error(response.message);
-      // }
-      //--------------
-
-      // Xử lý thành công (ví dụ: lưu token, chuyển hướng)
-      // console.log(response.success);
-      // console.log(response.message);
-      // console.log('Login successful:', response.token);
-
-      // Cập nhật state nếu cần thiết
-      setState({ ...state, error: null });
-    } catch (error: any) {
-      setState({ ...state, error: error.message });
-    }
   };
   return (
 
@@ -114,7 +62,9 @@ export const Register = () => {
           <input name='lastName' value={state.lastName} onChange={handleInputChange} className='w-[50%] mr-4 mb-2 p-4 bg-neutral-100 focus:outline-none focus-visible:border-gray-400 border rounded-xl border-transparent hover:border-indigo-500/50' type='text' placeholder='Họ' />
           <input name='firstName' value={state.firstName} onChange={handleInputChange} className='w-[50%] mb-2 p-4 bg-neutral-100 focus:outline-none focus-visible:border-gray-400 border rounded-xl border-transparent hover:border-indigo-500/50' type='text' placeholder='Tên' />
         </div>
-        <input className={style_input} name="userName" value={state.userName} onChange={handleInputChange} type="text" placeholder="Tên người dùng" />
+        <input className={style_input} name="userName" value={state.userName} onChange={handleInputChange} type="text" placeholder="Tên tài khoản" />
+        <input className={style_input} name="accountName" value={state.accountName} onChange={handleInputChange} type="text" placeholder="Tên người dùng" />
+
         <input className={style_input} name="password" value={state.password} onChange={handleInputChange} type="password" placeholder="Mật khẩu" />
         <input name='email' value={state.email} onChange={handleInputChange} className={style_input} type='email' placeholder='Email' />
         <div className='mb-2 '>
