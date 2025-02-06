@@ -22,7 +22,7 @@ class ItemLayout extends React.Component<Props, State> {
                             </svg>
                         </button>
                     </div>
-                    <div className='w-full bg-white border rounded-3xl h-[500px] p-5'>
+                    <div className='w-full bg-white border rounded-3xl  p-5'>
                         <Outlet/>
 
                     </div>
