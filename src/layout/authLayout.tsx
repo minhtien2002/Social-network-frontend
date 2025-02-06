@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { PlusOutlined } from '@ant-design/icons'
+import React from 'react'
 
 export const AuthLayout = () => {
   return (
