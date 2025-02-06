@@ -134,7 +134,7 @@ export const Home = () => {
           </div>
           <div className="w-full h-full bg-white border rounded-3xl rounded-b-none p-5 overflow-y-scroll">
             <ListPost datas={data} ></ListPost>
-          </div>
+          </div> 
         </div>
       </div>
       {/* <ItemLayout /> */}

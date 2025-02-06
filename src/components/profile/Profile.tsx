@@ -41,8 +41,10 @@ const userInfo: User = {
   followees: []
 }
 export const Profile = () => {
+
   return (
     <>
+   
       <div className='flex w-full flex-col gap-3 h-auto'>
         <div className='flex justify-between items-center '>
           <div className='flex items-start justify-start flex-col'>

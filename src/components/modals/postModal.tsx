@@ -3,12 +3,14 @@ import { Modal, Button, Image } from "antd";
 import MoreOutlined from "@ant-design/icons/MoreOutlined";
 import ChooseFile from "../icons/chooseFile";
 import GifIcon from "../icons/gifIcon";
+import { on } from "events";
 
 interface PostModalProps {
     isOpen: boolean;
+    onClose: () => void 
 }
 
-const PostModal: FC<PostModalProps> = ({ isOpen }) => {
+const PostModal: FC<PostModalProps> = ({ isOpen ,onClose}) => {
     const [isModalVisible, setIsModalVisible] = React.useState(isOpen);
     const textareaRef = useRef<HTMLTextAreaElement>(null);
  
@@ -25,7 +27,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen }) => {
 
             <Modal
                 open={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
+                onCancel={() => {setIsModalVisible(false),onClose()}}
                 title={null} // Loại bỏ tiêu đề
                 footer={null} // Loại bỏ footer
                 closable={false} // Ẩn nút đóng mặc định
@@ -34,7 +36,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen }) => {
             >
                 {/* Nội dung tùy chỉnh */}
                 <div className=" border-b flex justify-between items-center">
-                    <Button type="text" onClick={() => setIsModalVisible(false)} className="text-black text-lg">Hủy</Button>
+                    <Button type="text" onClick={() => {setIsModalVisible(false),onClose()}} className="text-black text-lg">Hủy</Button>
                     <strong className="text-lg">Thread mới</strong>
                     <MoreOutlined className="text-xl cursor-pointer" />
                 </div>
