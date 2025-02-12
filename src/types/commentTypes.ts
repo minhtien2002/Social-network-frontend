@@ -1,4 +1,4 @@
-interface UserFollow {
+interface UserCommentt {
     id: number;
     name: string;
     avatar: string;
@@ -17,7 +17,7 @@ interface Like {
 
 interface Comments {
     id: string;
-    user: UserFollow;
+    user: UserCommentt;
     content: string;
     timeComment: string;
     media: Media;

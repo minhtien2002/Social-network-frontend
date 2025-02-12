@@ -3,72 +3,7 @@ import ListPost from '../../../components/singlecomponents/listPost';
 import PostModal from '../../../components/modals/postModal';
 
 const data: Posts[] = [
-    {
-      id: "1",
-      user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
-      },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
-      timePost: "1 giờ",
-      media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
-      },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
-      },
-      comment: 2,
-      retweet: 3,
-      send: 4,
-    },
-    {
-      id: "2",
-      user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
-      },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
-      timePost: "1 giờ",
-      media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
-      },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
-      },
-      comment: 2,
-      retweet: 3,
-      send: 4,
-    },
-    {
-      id: "244",
-      user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
-      },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
-      timePost: "1 giờ",
-      media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
-      },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
-      },
-      comment: 2,
-      retweet: 3,
-      send: 4,
-    },
+    
   ];
 const PostsProfile: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);

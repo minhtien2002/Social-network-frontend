@@ -10,77 +10,59 @@ import { UserInformationModal } from "../../../components/modals/userInformation
 export const Home = () => {
   const data: Posts[] = [
     {
-      id: "dasdhasdasd",
+      id: "d",
       user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
+        id: 0,
+        accountName: "thienxz",
+        avatar: "",
+        fullName: "",
+        title: "",
+        followers: 0
       },
-      content: "Cầu vồng tượng trưng cho hy vọng. \n sadasdasdasd",
-      timePost: "1 giờ",
+      content: "",
+      timePost: "",
       media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
+        image: [],
+        video: []
       },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
+      like:{
+        id: 0,
+        userid: 0,
+        isLiked: false
       },
-      comment: 2,
-      retweet: 3,
-      send: 4,
+      comment: 0,
+      retweet: 0,
+      send: 0
     },
     {
-      id: "2",
+      id: "d",
       user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
+        id: 0,
+        accountName: "thienxz",
+        avatar: "",
+        fullName: "Tranminhthien",
+        title: "",
+        followers: 0
       },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
-      timePost: "1 giờ",
+      content: "sadasdsa",
+      timePost: "",
       media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
+        image: [],
+        video: []
       },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
+      like:{
+        id: 0,
+        userid: 0,
+        isLiked: false
       },
-      comment: 2,
-      retweet: 3,
-      send: 4,
-    },
-    {
-      id: "244",
-      user: {
-        id: 1,
-        name: "min.tine.02",
-        avatar: "avt.jpg",
-      },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
-      timePost: "1 giờ",
-      media: {
-        image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
-        video: [],
-      },
-      like: {
-        id: 1,
-        userid: 1,
-        isLiked: false,
-      },
-      comment: 2,
-      retweet: 3,
-      send: 4,
-    },
+      comment: 0,
+      retweet: 0,
+      send: 0
+    }
   ];
   return (
     <>
-   <UserInformationModal isOpen={true} onClose={function (): void {
-        throw new Error("Function not implemented.");
-      } }></UserInformationModal>
+  
 
 
       <div className="w-full flex justify-center items-center">

@@ -4,23 +4,15 @@ import MoreOutlined from "@ant-design/icons/MoreOutlined";
 
 import { on } from "events";
 import AvataUser from "../avatar/avatar";
-import { UserPost } from "../../types/userTypes";
 interface UserInforModalProps {
-    UserName?: string;
+    UserName: UserPosts;
     isOpen: boolean;
     onClose: () => void
 }
-const user:UserPost ={
-    id: 0,
-    accountName: "thienzm",
-    fullName: " Mặt trăng cuối cùng",
-    title: "asdasdasdsadsad \n sdsad",
-    followers: 5,
-    avatar: ""
-}
+
 
 export const UserInformationModal: FC<UserInforModalProps> = ({ UserName,isOpen, onClose }) => {
-    const [Userpost, setUserpost] = React.useState(user);
+    const [Userpost, setUserpost] = React.useState(UserName);
     
     const [isModalVisible, setIsModalVisible] = React.useState(isOpen);
 

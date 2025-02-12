@@ -1,6 +1,10 @@
-interface UserFollow {
+
+interface UserPosts {
     id: number;
-    name: string;
+    accountName: string;
+    fullName: string;
+    title: string;
+    followers: number;
     avatar: string;
 }
 
@@ -20,7 +24,7 @@ interface Like {
 
 interface Posts {
     id: string;
-    user: UserFollow;
+    user: UserPosts;
     content: string;
     timePost: string;
     media: Media;
