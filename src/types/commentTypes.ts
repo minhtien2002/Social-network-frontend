@@ -15,11 +15,11 @@ interface Like {
     isLiked: boolean;
 }
 
-interface Posts {
+interface Comments {
     id: string;
     user: UserFollow;
     content: string;
-    timePost: string;
+    timeComment: string;
     media: Media;
     like: Like;
     comment: number;

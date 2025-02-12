@@ -2,29 +2,24 @@ import React, { FC, useRef, useState } from 'react';
 import { Image } from 'antd';
 import { CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, RetweetOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../avatar/avatar';
-import Item from 'antd/es/list/Item';
 
-
-interface ListPostProps {
-    datas: Posts[];
+interface ListCommentProps {
+    datas: Comments[];
 }
-
-const ListPost: FC<ListPostProps> = ({ datas }) => {
+export const ListComment: FC<ListCommentProps> = ({ datas }) => {
 
 
     return (<>
         <div className="w-full ">
             {datas.map((item, itemindex) => (
-                <ItemPost key={item.id} item={item} />
+                <ItemComment key={item.id} item={item} />
             ))}
         </div>
     </>);
 
 };
 
-
-
-const ItemPost: FC<{ item: Posts }> = ({ item }) => {
+const ItemComment: FC<{ item: Comments }> = ({ item }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -56,7 +51,7 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
 
     return (
 
-        <div key={item.id} className="px-5 w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
+        <div key={item.id} className=" w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
             <div className="w-10 h-10">
                 <div className="w-9 h-9  flex justify-center items-center cursor-pointer">
                     <Avatar src={item.user.avatar} alt={''} ></Avatar>  
@@ -130,4 +125,3 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
 
     );
 };
-export default ListPost;

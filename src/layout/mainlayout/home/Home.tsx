@@ -8,19 +8,19 @@ import {
 } from "@ant-design/icons";
 import { Image } from "antd";
 import React, { useRef } from "react";
-import PostModal from "../modals/postModal";
-import ListPost from "../singlecomponents/listPost";
+import PostModal from "../../../components/modals/postModal";
+import ListPost from "../../../components/singlecomponents/listPost";
 
 export const Home = () => {
   const data: Posts[] = [
     {
-      id: 1,
+      id: "dasdhasdasd",
       user: {
         id: 1,
         name: "min.tine.02",
         avatar: "avt.jpg",
       },
-      content: "Cầu vồng tượng trưng cho hy vọng.",
+      content: "Cầu vồng tượng trưng cho hy vọng. \n sadasdasdasd",
       timePost: "1 giờ",
       media: {
         image: ["../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg","../src/assets/share-image/" + "avt.jpg"],
@@ -36,7 +36,7 @@ export const Home = () => {
       send: 4,
     },
     {
-      id: 2,
+      id: "2",
       user: {
         id: 1,
         name: "min.tine.02",
@@ -58,7 +58,7 @@ export const Home = () => {
       send: 4,
     },
     {
-      id: 244,
+      id: "244",
       user: {
         id: 1,
         name: "min.tine.02",

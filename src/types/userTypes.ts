@@ -17,6 +17,17 @@ export interface User {
     followees: Follow[];
   }
   
+  export interface UserSearch {
+    fullName: string;
+    accountName: string;
+    title: string;
+    urlAvatar: string;
+    followers: Follow[];
+    IsFollow: 'follow' | 'unfollow' | 'followup';
+    
+  }
+
+
   export interface UserState {
     users: User[];
     userInfo: User | null;

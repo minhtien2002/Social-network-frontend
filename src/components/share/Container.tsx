@@ -2,7 +2,7 @@ import { EllipsisOutlined } from '@ant-design/icons'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import ItemLayout from '../../layout/ItemLayout'
-import { Profile } from '../profile/Profile'
+import { Profile } from '../../layout/mainlayout/profile/Profile'
 
 enum title {
   'Dành cho bạn',

@@ -21,7 +21,11 @@ const PostModal: FC<PostModalProps> = ({ isOpen ,onClose}) => {
             textarea.style.height = `${textarea.scrollHeight}px`; // Cập nhật chiều cao theo nội dung
         }
     };
-
+    const handleClick = () => {
+        if (textareaRef.current) {
+          alert(`Giá trị nhập vào: ${textareaRef.current.value}`);
+        }
+      };
     return (
         <div>
 
@@ -75,7 +79,7 @@ const PostModal: FC<PostModalProps> = ({ isOpen ,onClose}) => {
                         </select>
                         </div>
                         <div>
-                            <button className="flex justify-center border items-center  mr-3 text-black font-semibold rounded-md text-[15px] " style={{border: "#rgba(0, 0, 0, 0.15)"}}>
+                            <button onClick={handleClick} className="flex justify-center border items-center  mr-3 text-black font-semibold rounded-md text-[15px] " style={{border: "#rgba(0, 0, 0, 0.15)"}}>
                                 Đăng
                             </button>
                         </div>

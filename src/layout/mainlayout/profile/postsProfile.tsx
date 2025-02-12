@@ -1,10 +1,10 @@
 import React from 'react';
-import ListPost from '../singlecomponents/listPost';
-import PostModal from '../modals/postModal';
+import ListPost from '../../../components/singlecomponents/listPost';
+import PostModal from '../../../components/modals/postModal';
 
 const data: Posts[] = [
     {
-      id: 1,
+      id: "1",
       user: {
         id: 1,
         name: "min.tine.02",
@@ -26,7 +26,7 @@ const data: Posts[] = [
       send: 4,
     },
     {
-      id: 2,
+      id: "2",
       user: {
         id: 1,
         name: "min.tine.02",
@@ -48,7 +48,7 @@ const data: Posts[] = [
       send: 4,
     },
     {
-      id: 244,
+      id: "244",
       user: {
         id: 1,
         name: "min.tine.02",

@@ -1,9 +1,7 @@
 import { AppstoreOutlined, EllipsisOutlined, InstagramOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
 import React from 'react'
-import { Anchor } from 'antd'
 import type { MenuProps } from 'antd';
-import { Menu } from 'antd';
-import { User } from '../../types/userTypes';
+import { User } from '../../../types/userTypes';
 import PostsProfile from './postsProfile';
 type MenuItem = Required<MenuProps>['items'][number];
 

@@ -1,29 +1,101 @@
-import React, { FC, useRef, useState } from 'react';
-import { Image } from 'antd';
-import { CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, RetweetOutlined, SendOutlined } from '@ant-design/icons';
-import Avatar from '../avatar/avatar';
-import Item from 'antd/es/list/Item';
+import React, { FC, useRef } from 'react';
+import Avatar from '../../../components/avatar/avatar';
+import { CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, RetweetOutlined, RightOutlined, SendOutlined } from '@ant-design/icons';
+import { ListComment } from '../../../components/singlecomponents/listComment';
 
+const data: Posts = {
 
-interface ListPostProps {
-    datas: Posts[];
+    id: "1",
+    user: {
+        id: 1,
+        name: "min.tine.02",
+        avatar: "avt.jpg",
+    },
+    content: "Cầu vồng tượng trưng cho hy vọng.",
+    timePost: "1 giờ",
+    media: {
+        image: [],
+        video: [],
+    },
+    like: {
+        id: 1,
+        userid: 1,
+        isLiked: false,
+    },
+    comment: 2,
+    retweet: 3,
+    send: 4,
+
 }
-
-const ListPost: FC<ListPostProps> = ({ datas }) => {
-
-
-    return (<>
-        <div className="w-full ">
-            {datas.map((item, itemindex) => (
-                <ItemPost key={item.id} item={item} />
-            ))}
-        </div>
-    </>);
-
-};
-
-
-
+const datas: Comments[] = [
+    {
+        id: "1",
+        user: {
+          id: 1,
+          name: "min.tine.02",
+          avatar: "avt.jpg",
+        },
+        content: "Cầu vồng tượng trưng cho hy vọng.",
+        timeComment: "1 giờ",
+        media: {
+            video: [],
+            image: []
+        },
+        like: {
+          id: 1,
+          userid: 1,
+          isLiked: false,
+        },
+        comment: 2,
+        retweet: 3,
+        send: 4,
+      },
+      {
+        id: "2",
+        user: {
+          id: 1,
+          name: "min.tine.02",
+          avatar: "avt.jpg",
+        },
+        content: "Cầu vồng tượng trưng cho hy vọng.",
+        timeComment: "1 giờ",
+        media: {
+          image: [],
+          video: [],
+        },
+        like: {
+          id: 1,
+          userid: 1,
+          isLiked: false,
+        },
+        comment: 2,
+        retweet: 3,
+        send: 4,
+      },
+      {
+        id: "244",
+        user: {
+          id: 1,
+          name: "min.tine.02",
+          avatar: "avt.jpg",
+        },
+        content: "Cầu vồng tượng trưng cho hy vọng.",
+        timeComment: "1 giờ",
+        media: {
+          image: [],
+          video: [],
+        },
+        like: {
+          id: 1,
+          userid: 1,
+          isLiked: false,
+        },
+        comment: 2,
+        retweet: 3,
+        send: 4,
+      },
+     
+  ];
 const ItemPost: FC<{ item: Posts }> = ({ item }) => {
     const scrollRef = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
@@ -56,10 +128,10 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
 
     return (
 
-        <div key={item.id} className="px-5 w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
+        <div key={item.id} className="px-1 w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
             <div className="w-10 h-10">
                 <div className="w-9 h-9  flex justify-center items-center cursor-pointer">
-                    <Avatar src={item.user.avatar} alt={''} ></Avatar>  
+                    <Avatar src={item.user.avatar} alt={''} ></Avatar>
                 </div>
             </div>
             <div className="w-full ml-2 flex flex-col gap-1">
@@ -72,8 +144,8 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
                 <div className="w-full flex flex-col gap-[6px] justify-center items-start">
                     <div>
                         {item.content.split("\n").map((line, index) => (
-        <p key={index}>{line}</p>
-      ))}
+                            <p key={index}>{line}</p>
+                        ))}
                     </div>
                     {item.media.image.length > 0 || item.media.video.length > 0 ? (
                         <div
@@ -103,7 +175,7 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
                     }
                 </div>
                 <ul className="w-full h-9 flex flex-row justify-start items-center gap-2 text-lg text-[#555555]">
-                    <li className="flex flex-row gap-1 px-3 h-[32px]  hover:bg-[#e9e9e9] rounded-full cursor-pointer">
+                    <li className="flex flex-row gap-1  h-[32px]  hover:bg-[#e9e9e9] rounded-full cursor-pointer">
                         {!item.like.isLiked ? (
                             <HeartOutlined />
                         ) : (
@@ -130,4 +202,23 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
 
     );
 };
-export default ListPost;
+
+const PostDetail: React.FC = () => {
+    return (<>
+        <ItemPost item={data}></ItemPost>
+        <div className='-mx-5 w-[calc(100%+2,5rem)] flex justify-between border-b border-[#c7c7c7] py-4 '>
+            <div className='ml-5 font-semibold text-[15px] text-black'>
+                Thread Trả lời  
+            </div>
+            <div className=' flex justify-start items-center gap-1 mr-5 text-[15px] text-[#999999] cursor-pointer'>
+                <span> Xem hoạt động</span>
+                <RightOutlined  className='text-[14px] mt-[2px]'/>
+            </div>
+        </div>
+        <ListComment datas={datas}></ListComment>
+
+    </>
+    );
+};
+
+export default PostDetail;
