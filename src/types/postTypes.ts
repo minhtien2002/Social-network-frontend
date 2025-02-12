@@ -4,6 +4,9 @@ interface UserFollow {
     avatar: string;
 }
 
+
+
+
 interface Media {
     image: string[];
     video: string[];

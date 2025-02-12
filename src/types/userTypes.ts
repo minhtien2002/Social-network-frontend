@@ -2,6 +2,17 @@ export interface Follow {
     id: string;
     name: string;
   }
+
+  export interface UserPost {
+    id: number;
+    accountName: string;
+    fullName: string;
+    title: string;
+    followers: number;
+    avatar: string;
+}
+
+
 export interface User {
     fullName: string;
     accountName: string;

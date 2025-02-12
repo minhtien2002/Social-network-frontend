@@ -7,7 +7,7 @@ interface AvatarProps {
     preview?: boolean;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ src, alt, preview = false }) => {
+const AvataUser: React.FC<AvatarProps> = ({ src, alt, preview = false }) => {
     return (
         <div className="w-full h-full rounded-full bg-slate-200 flex justify-center items-center cursor-pointer">
         <Image
@@ -19,4 +19,4 @@ const Avatar: React.FC<AvatarProps> = ({ src, alt, preview = false }) => {
     );
 };
 
-export default Avatar;
+export default AvataUser;

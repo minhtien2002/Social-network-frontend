@@ -2,6 +2,7 @@ import React, { FC, useRef, useState } from 'react';
 import { Image } from 'antd';
 import { CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, RetweetOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../avatar/avatar';
+import AvataUser from '../avatar/avatar';
 
 interface ListCommentProps {
     datas: Comments[];
@@ -54,7 +55,7 @@ const ItemComment: FC<{ item: Comments }> = ({ item }) => {
         <div key={item.id} className=" w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
             <div className="w-10 h-10">
                 <div className="w-9 h-9  flex justify-center items-center cursor-pointer">
-                    <Avatar src={item.user.avatar} alt={''} ></Avatar>  
+                    <AvataUser src={item.user.avatar} alt={''} ></AvataUser>  
                 </div>
             </div>
             <div className="w-full ml-2 flex flex-col gap-1">

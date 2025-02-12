@@ -3,6 +3,8 @@ import { Image } from 'antd';
 import { CommentOutlined, EllipsisOutlined, HeartFilled, HeartOutlined, RetweetOutlined, SendOutlined } from '@ant-design/icons';
 import Avatar from '../avatar/avatar';
 import Item from 'antd/es/list/Item';
+import { useNavigate } from 'react-router-dom';
+import AvataUser from '../avatar/avatar';
 
 
 interface ListPostProps {
@@ -29,7 +31,7 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
     const isDragging = useRef(false);
     const startX = useRef(0);
     const scrollLeft = useRef(0);
-
+    const navigate = useNavigate();
     const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!scrollRef.current) return;
 
@@ -53,18 +55,29 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
         isDragging.current = false;
         document.body.style.userSelect = "auto"; // Cho phép chọn text lại
     };
-
+    const handleOnClick = (accountName: string, idpost: string) => {
+        navigate(accountName + "/post/" + idpost);
+    }
     return (
 
-        <div key={item.id} className="px-5 w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
+        <div key={item.id} onClick={() => handleOnClick(item.user.name, item.id)} className="cursor-pointer px-5 w-full py-3 flex flex-row justify-between border-b border-[#c7c7c7]">
             <div className="w-10 h-10">
                 <div className="w-9 h-9  flex justify-center items-center cursor-pointer">
-                    <Avatar src={item.user.avatar} alt={''} ></Avatar>  
+                    <AvataUser src={item.user.avatar} alt={''} ></AvataUser>
                 </div>
             </div>
             <div className="w-full ml-2 flex flex-col gap-1">
                 <div className="w-full flex felx-row gap-2 justify-start items-center relative">
-                    <div className="text-[#999999]">{item.user.name}</div>
+                    <div className='flex justify-start items-center gap-1 relative'>
+                        <span className="text-[black] hover:underline  font-semibold text-[15px]  ">
+                            {item.user.name}
+                        </span>
+                        <span className='text-[#999999] text-[15px]'>
+                            24 giờ
+                        </span>
+
+
+                    </div>
                     <div className="translate-y-[-4px] absolute top-0 right-0 p-1 w-10 rounded-full text-[20px] text-[#999999] text-center hover:bg-[#e9e9e9] cursor-pointer">
                         <EllipsisOutlined />
                     </div>
@@ -72,8 +85,8 @@ const ItemPost: FC<{ item: Posts }> = ({ item }) => {
                 <div className="w-full flex flex-col gap-[6px] justify-center items-start">
                     <div>
                         {item.content.split("\n").map((line, index) => (
-        <p key={index}>{line}</p>
-      ))}
+                            <p key={index}>{line}</p>
+                        ))}
                     </div>
                     {item.media.image.length > 0 || item.media.video.length > 0 ? (
                         <div
