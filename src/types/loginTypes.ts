@@ -19,5 +19,5 @@ export interface register {
     register: string | null;
     loading: boolean;
     error: string | null;
-    token: null, 
+    token: string | null, 
   }

@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ListPost from '../../../components/singlecomponents/listPost';
 import PostModal from '../../../components/modals/postModal';
 
-const data: Posts[] = [
-    
-  ];
-const PostsProfile: React.FC = () => {
+
+const PostsProfile: React.FC<{posts:any[]}> = ({posts}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [data, setData] = React.useState<Posts[]>([]);
+  useEffect(() => {
+    setData(posts);
+    console.log(data);
+  }, [posts]);
     return (
       
         <>

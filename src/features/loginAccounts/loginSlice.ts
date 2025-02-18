@@ -23,9 +23,9 @@ const loginSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchRegisterAccount.fulfilled, (state, action: PayloadAction<{token: any}>) => {
+            .addCase(fetchRegisterAccount.fulfilled, (state, action: PayloadAction<{token: string}>) => {
                 state.loading = false;
-                state.token = action.payload.token;
+                state.token = action.payload.token.trim();
             })
             .addCase(fetchRegisterAccount.rejected, (state, action) => {
                 state.loading = false;

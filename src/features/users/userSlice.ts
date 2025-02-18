@@ -5,6 +5,7 @@ import { fetchUsers, fetchUserInfo } from './userThunks';
 const initialState: UserState = {
     users: [],
     userInfo: null,
+    dataInfo:null, 
     loading: false,
     error: null,
   };
@@ -34,9 +35,11 @@ const initialState: UserState = {
           state.loading = true;
           state.error = null;
         })
-        .addCase(fetchUserInfo.fulfilled, (state, action: PayloadAction<User>) => {
+        .addCase(fetchUserInfo.fulfilled, (state, action: PayloadAction<any>) => {
           state.loading = false;
-          state.userInfo = action.payload;
+          state.dataInfo = action.payload;
+          
+
         })
         .addCase(fetchUserInfo.rejected, (state, action) => {
           state.loading = false;

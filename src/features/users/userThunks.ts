@@ -1,6 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { User } from '../../types/userTypes';
+import { apiUserRequest } from '../../apiClient';
 
+const User_URL = '/User';
 // Fetch all users
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
@@ -18,11 +20,27 @@ export const fetchUsers = createAsyncThunk(
 // Fetch user info by accountname
 export const fetchUserInfo = createAsyncThunk(
   'users/fetchUserInfo',
-  async (name: string, thunkAPI) => {
+  async (data: string, thunkAPI) => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`/api/users/userinfo/${name}`);
-      if (!response.ok) throw new Error('Failed to fetch user info');
-      return (await response.json()) as User;
+     if(token=== null){
+        return await apiUserRequest(User_URL + '/userinfowithoutauthor/' + data, {
+          method: 'GET',
+         
+        });
+      }else{
+     return await apiUserRequest(User_URL + '/userinfo/' + data, {
+        method: 'GET',
+        headers: {
+          "Authorization":`Bearer ${token}`,
+          "Content-Type": "application/json",
+          'credentials': "include",
+
+        },
+      });
+      
+
+    }
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }

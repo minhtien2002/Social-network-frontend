@@ -53,7 +53,7 @@ export const Login = () => {
     console.log(result);
     if(result.meta.requestStatus !== 'rejected'){
       setState({ ...state, message: 'Đăng nhập thành công', status: 'success' });
-      localStorage.setItem('token', result.payload);
+      localStorage.setItem('token', result.payload.token);
       navigate('/');
      }else{
       setState({ ...state, message: 'Đăng nhập thất bại', status: 'error' });

@@ -42,6 +42,7 @@ export interface User {
   export interface UserState {
     users: User[];
     userInfo: User | null;
+    dataInfo: any;
     loading: boolean;
     error: string | null;
   }

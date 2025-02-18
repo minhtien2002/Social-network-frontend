@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Outlet } from 'react-router-dom';
 
-interface Props {
 
-}
-
-interface State {
-
-}
-
-class ItemLayout extends React.Component<Props, State> {
+class ItemLayout extends React.Component<{}, {}> {
     render() {
         return (<>
             <div className=' h-auto w-full flex justify-center items-center  '>

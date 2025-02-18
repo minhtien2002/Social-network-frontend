@@ -27,6 +27,11 @@ export const fetchLoginAccount = createAsyncThunk(
         try {
             return await apiUserRequest(acount_URL+'/login', {
                 method: 'POST',
+                credentials:'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+               
                 body: JSON.stringify(account),
             });
         } catch (error: any) {
