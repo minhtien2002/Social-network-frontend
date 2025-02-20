@@ -3,16 +3,17 @@ import {
   
 } from "@ant-design/icons";
 import React, { useRef } from "react";
-import PostModal from "../../../components/modals/postModal";
 import ListPost from "../../../components/singlecomponents/listPost";
-import { UserInformationModal } from "../../../components/modals/userInformationModal";
+import FollowUserProfile from "../profile/followUserProfile";
+import ChangeInfoProfile from "../profile/changeInfoPorfile";
+import InputTextModal from "../../../components/modals/inputTextModal";
 
 export const Home = () => {
   const data: Posts[] = [
     {
       id: "d",
       user: {
-        id: 0,
+        id: "0",
         accountName: "thienxz",
         avatar: "",
         fullName: "",
@@ -21,10 +22,7 @@ export const Home = () => {
       },
       content: "",
       timePost: "",
-      media: {
-        image: [],
-        video: []
-      },
+      media: [],
       like:{
         id: 0,
         userid: 0,
@@ -37,7 +35,7 @@ export const Home = () => {
     {
       id: "d",
       user: {
-        id: 0,
+        id: "0",
         accountName: "thienxz",
         avatar: "",
         fullName: "Tranminhthien",
@@ -46,10 +44,7 @@ export const Home = () => {
       },
       content: "sadasdsa",
       timePost: "",
-      media: {
-        image: [],
-        video: []
-      },
+      media:[],
       like:{
         id: 0,
         userid: 0,
@@ -63,7 +58,11 @@ export const Home = () => {
   return (
     <>
   
-
+<InputTextModal title={"Chỉnh sửa thông tin"} introduction={""} typeinput={"text"} isOpen={true} onSubmit={function (output: string): void {
+       console.log(output);
+      } } onCancel={function (): void {
+        throw new Error("Function not implemented.");
+      } } />
 
       <div className="w-full flex justify-center items-center">
         <div className="w-2/3 h-screen flex justify-center items-center flex-col px-6 overflow-hidden">

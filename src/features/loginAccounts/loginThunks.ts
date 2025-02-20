@@ -38,4 +38,5 @@ export const fetchLoginAccount = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.message);
         }
     }
+    
 );

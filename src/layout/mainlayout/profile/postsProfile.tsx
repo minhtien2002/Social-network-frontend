@@ -8,7 +8,6 @@ const PostsProfile: React.FC<{posts:any[]}> = ({posts}) => {
   const [data, setData] = React.useState<Posts[]>([]);
   useEffect(() => {
     setData(posts);
-    console.log(data);
   }, [posts]);
     return (
       

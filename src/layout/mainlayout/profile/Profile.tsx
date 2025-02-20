@@ -1,16 +1,22 @@
 import { AppstoreOutlined, EllipsisOutlined, InstagramOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
 import React, { useEffect } from 'react'
-import type { MenuProps } from 'antd';
 import { User } from '../../../types/userTypes';
 import PostsProfile from './postsProfile';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../../store';
 import { fetchUserInfo } from '../../../features/users/userThunks';
 import { useParams } from 'react-router-dom';
-import { set } from 'react-hook-form';
+import FollowUserProfile from './followUserProfile';
+import ChangeInfoProfile from './changeInfoPorfile';
+import { fetchRemoveFollow, fetchRemoveFollowee, fetchRequestFollow } from '../../../features/follows/followThunks';
+import { Alert } from 'antd';
 
  
-
+interface Alert {
+  isOpen: boolean,
+  message: string,
+  status: 'error' | 'success' | 'info' | 'warning' | undefined
+}
 const userInf1: User = {
   fullName: '',
   accountName: '',
@@ -27,13 +33,21 @@ const userInf1: User = {
 }
 export const Profile = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const [message,setMessage] = React.useState<Alert>({isOpen:false,message:'',status:undefined});
   const { accountname } = useParams();
   const [userInfo, setUserInfo] = React.useState<User>(userInf1);
   const [type, setType] = React.useState<'private' | 'public' | undefined>('private');
+  const [isOpenFollowModal , setIsOpenFollowModal] = React.useState(false);
+  const [isOpenInfoModal , setIsOpenInfoModal] = React.useState(false);
   const [typeFollow, setTypeFollow] = React.useState<number>(0);
   const [activeTab, setActiveTab] = React.useState(0); // 0: Thread, 1: Thread Trả lời, 2: Bài đăng lại
   const[posts,setPosts]= React.useState<any[]>([]);
+  const followsState = useSelector((state: RootState) => state.follows);
+
+  
+  
   const user = useSelector((state: RootState) => state.users.dataInfo);
+  
   useEffect(() => {
     if (accountname) {
       dispatch(fetchUserInfo(accountname))
@@ -41,7 +55,6 @@ export const Profile = () => {
   }, [accountname, dispatch])
   useEffect(() => {
     if (user) {
-      console.log(user); // Kiểm tra giá trị user
       const data: User = {
         fullName: user.infoUser.fullName,
         accountName: user.infoUser.accountName,
@@ -78,6 +91,44 @@ export const Profile = () => {
       prevPosts.map((post) => ({ ...post, user: newUser }))
     );
   };
+  const RequestFollowUser = (RequestAccountName :string) => {
+    setMessage({...message,isOpen:false,message:'',status:undefined});
+
+      dispatch(fetchRequestFollow(RequestAccountName)).then((x) => {
+        console.log(x.payload);
+        if(x.payload==1){
+          setTypeFollow(1);
+          setMessage({...message,isOpen:true,message:'Đã gửi yêu cầu theo dõi thành công',status:'success'});
+        }else{
+          setTypeFollow(0)
+          setMessage({...message,isOpen:true,message:'Gửi yêu cầu theo dõi thất bại',status:'error'});
+        }
+      });
+      setTimeout(() => {
+        setMessage({...message,isOpen:false,message:'',status:undefined});
+      }, 1500);
+      
+
+  }
+  const RemoveFollowUser = (RequestAccountName :string) => {
+    setMessage({...message,isOpen:false,message:'',status:undefined});
+
+    dispatch(fetchRemoveFollowee(RequestAccountName)).then((x) => {
+      console.log(x);
+
+      if(x.payload==1){
+        setTypeFollow(0);
+        setMessage({...message,isOpen:true,message:'Đã gửi yêu cầu hủy theo dõi thành công',status:'success'});
+      }else{
+        setTypeFollow(1)
+        setMessage({...message,isOpen:true,message:'Gửi yêu cầu hủy theo dõi thất bại',status:'error'});
+      }
+      setTimeout(() => {
+        setMessage({...message,isOpen:false,message:'',status:undefined});
+      }, 1500);
+    });
+   
+}
   return (
     <>
 
@@ -96,7 +147,9 @@ export const Profile = () => {
           </div>
         </div>
         <div className='flex justify-between items-center'>
-          <div className='text-[#999999] text-[15px] cursor-pointer hover:underline'>
+          <div
+          onClick={()=> {setIsOpenFollowModal(true)}}
+          className='text-[#999999] text-[15px] cursor-pointer hover:underline'>
             {userInfo.followers.length} người theo dõi
           </div>
           <div>
@@ -105,18 +158,24 @@ export const Profile = () => {
         </div>
         <div>
           {type == 'private' ? (
-            <button className='w-full h-9 border rounded-xl  font-bold text-[15px]'>
+            <button 
+            onClick={()=> {setIsOpenInfoModal(true)}}
+            className='w-full h-9 border rounded-xl  font-bold text-[15px]'>
               Chỉnh sửa trang cá nhân
             </button>
           ) : (
             <>
               <div className='flex gap-4'>
                 {typeFollow === 0 ? (
-                 <button className='w-2/4 text-white bg-black  h-9 border rounded-xl  font-bold text-[15px]'>
+                 <button 
+                 onClick={()=>{RequestFollowUser(userInfo.accountName)}}
+                 className='w-2/4 text-white bg-black  h-9 border rounded-xl  font-bold text-[15px]'>
                  Theo dõi
                </button>
                 ) : typeFollow === 1 ? (
-                  <button className='w-2/4 h-9 border rounded-xl  font-bold text-[15px]'>
+                  <button
+                  onClick={()=>{RemoveFollowUser(userInfo.accountName)}}
+                  className='w-2/4 h-9 border rounded-xl  font-bold text-[15px]'>
                   Đang theo dõi
                 </button>
                 ) : (
@@ -153,6 +212,18 @@ export const Profile = () => {
     </div>
 
       </div> 
+      { isOpenFollowModal&&
+    <FollowUserProfile accountName={userInfo.accountName} isOpen={true} onClose={function (): void {
+        setIsOpenFollowModal(false);}
+      } />} 
+      { isOpenInfoModal&& 
+       <ChangeInfoProfile user={userInfo} isOpen={true} onClose={function (): void {
+        setIsOpenInfoModal(false)
+      } } />
+      }
+
+
+{message.isOpen && <Alert className="w-[40%] animate-bounce-up z-[2] py-4 px-6 fixed  bottom-0 text-[16px] font-medium" message={message.message} type={message.status} showIcon></Alert>}
 
     </>
   )

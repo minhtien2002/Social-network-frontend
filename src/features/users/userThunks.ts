@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from '../../types/userTypes';
+import { RequestApiUserFollow, User } from '../../types/userTypes';
 import { apiUserRequest } from '../../apiClient';
 
 const User_URL = '/User';
@@ -38,11 +38,31 @@ export const fetchUserInfo = createAsyncThunk(
 
         },
       });
-      
-
     }
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
+);
+export const fetchUserFollow = createAsyncThunk(
+  'users/fetchUserFollow',
+  async (user: RequestApiUserFollow, thunkAPI) => {
+    try {
+    const token = localStorage.getItem('token');
+    return await apiUserRequest(User_URL + '/GetListFollow/' + user.accountName+'?type='+user.type+'&typePrivate='+user.typePrivate, {
+      method: 'GET',
+      headers: {
+        "Authorization":`Bearer ${token}`,
+        "Content-Type": "application/json",
+        'credentials': "include",
+
+      },
+    });
+     
+  }catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+}
+  
+
 );

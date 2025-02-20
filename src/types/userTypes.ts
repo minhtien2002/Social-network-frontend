@@ -11,7 +11,11 @@ export interface Follow {
     followers: number;
     avatar: string;
 }
-
+export interface RequestApiUserFollow {
+    accountName: string;
+    type: string;
+    typePrivate: boolean;
+}
 
 export interface User {
     fullName: string;
@@ -37,11 +41,18 @@ export interface User {
     IsFollow: 'follow' | 'unfollow' | 'followup';
     
   }
-
+  export interface UserFollowProfile {
+    src: string;
+    accountName: string;
+    fullName: string;
+    id:string;
+    isFollow: number;
+}
 
   export interface UserState {
     users: User[];
     userInfo: User | null;
+    userFollow: UserFollowProfile[];
     dataInfo: any;
     loading: boolean;
     error: string | null;

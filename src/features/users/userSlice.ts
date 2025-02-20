@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { User, UserState } from '../../types/userTypes';
-import { fetchUsers, fetchUserInfo } from './userThunks';
+import { User, UserFollowProfile, UserState } from '../../types/userTypes';
+import { fetchUsers, fetchUserInfo,fetchUserFollow } from './userThunks';
 
 const initialState: UserState = {
     users: [],
     userInfo: null,
     dataInfo:null, 
+    userFollow:[],
     loading: false,
     error: null,
   };
@@ -15,6 +16,9 @@ const initialState: UserState = {
     reducers: {
       resetUserInfo: (state) => {
         state.userInfo = null;
+        state.dataInfo=null;
+        state.userFollow=[];
+
       },
     },
     extraReducers: (builder) => {
@@ -45,7 +49,22 @@ const initialState: UserState = {
           state.loading = false;
           state.error = action.payload as string;
         });
+        builder.addCase(fetchUserFollow.pending, (state) => {
+          state.loading = true;
+          state.error = null;
+      });
+        builder.addCase(fetchUserFollow.fulfilled, (state, action: PayloadAction<UserFollowProfile[]>) => {
+          state.loading = false;
+          state.userFollow = action.payload;
+      });
+        builder.addCase(fetchUserFollow.rejected, (state, action) => {
+          state.loading = false;
+          state.error = action.payload as string;
+      }
+      );
+
     },
+    
   });
   
   export const { resetUserInfo } = userSlice.actions;
